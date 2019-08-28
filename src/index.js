@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import GlobalStyle from './style'
+import IconfontStyle from './asset/iconfont'
+import setHtmlFontSize from './tool/setHtmlFontSize'
+import { Provider } from 'react-redux'
+import store from './store/store'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+setHtmlFontSize(document, window, 750)
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+        <Provider store = {store}>
+            <IconfontStyle/>
+            <GlobalStyle/>
+            <App/>
+        </Provider>
+        , document.getElementById('root'));
+
