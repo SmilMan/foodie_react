@@ -1,0 +1,1 @@
+export const INIT_IMGBAR = "init_imgBar"

@@ -17,15 +17,14 @@ export const ContentWrap = style.div`
     left: 0;
     right: 0;
     bottom: 0;
-    margin: auto;
     overflow-y: scroll;
     z-index: -1;
+    min-width: 300px;
     &::-webkit-scrollbar{
         width: 0px
     }
 `
 export const HeaderLogo = style.div`
-    height: 4rem;
     height: 2.2rem;
     border-bottom: 1px solid #eee;
     img{

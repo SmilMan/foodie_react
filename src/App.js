@@ -1,14 +1,8 @@
-import React, {Fragment} from 'react';
-import Home from './components/home'
-import ShopDetail from './components/shopDetail/index'
+import React from 'react';
+import Home from 'home/index'
 function App() {
   return (
-    <Fragment>
         <Home />
-    <ShopDetail/>  
-    </Fragment>
-
   );
 }
-
 export default App;

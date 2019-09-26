@@ -11,7 +11,7 @@ export const WrapUl = styled.ul`
         width: 25%;
         height: 50%;
         display: inline-block;
-        a{
+        .icon-wrap{
             text-align: center;
             text-decoration: none;
             outline: none;

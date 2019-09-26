@@ -1,3 +1,5 @@
+// import { GET_TYPE_SHOP } from './actionType'
+
 let defaultState ={
     Icon:[
         {
@@ -28,5 +30,5 @@ let defaultState ={
     ]
 }
 export default (state = defaultState, action) => {
-    return state
+    return state;
 }
