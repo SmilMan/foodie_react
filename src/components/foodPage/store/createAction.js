@@ -18,19 +18,18 @@ export const getCommonAction = (data) => {
 }
 
 /**
- * 
+ * 获取详细食物信息
  * @param {*} shopName  商品的名称
  * @param {*} foodName  食品的名称
- * 没用到，因为部分的数据。可以借用shopDetail的数据，进行相应的整理
+ * 
  */
 
 export const getFoodData = (shopName, foodName) => {
     return (dispatch) => {
         axios.get(`${api}/shopdetail?shopName="${shopName}"&foodname="${foodName}"`)
             .then( (res) => {
-                console.log(res);
                 if (res.status === 200) {
-                    const action = initFood(res.data.data);
+                    const action = initFood(res.data.data[0]);
                     dispatch(action);
                 }
             })

@@ -97,7 +97,7 @@ class ShopDetail extends React.Component{
                     <div className="title">店里特色</div>
                     { food.map( (ele, index) => {
                         return ele.foodname === "无" ? <p key ={index}  className="no-food">请直接到店面就餐</p> :
-                            <Link key = {index} to = {"/food/" + ele.foodname + ".html"} className="food-link">
+                            <Link key = {index} to = {"/food/" + shop_name + '&'+ele.foodname + ".html"} className="food-link">
                                 <div className="food-content">
                                     <div className="img-wrap">
                                         <img src={ele.title_img} alt=" "/>

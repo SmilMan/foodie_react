@@ -2,6 +2,9 @@ import React, { Fragment } from "react"
 import { connect } from "react-redux"
 import { Link, withRouter } from 'react-router-dom'
 
+import axios from 'axios'
+import {api} from 'api/config.js'
+
 import ComHeader from "common/comHeader/index"
 
 import {
@@ -15,7 +18,7 @@ import {
 import logoImg from  'asset/logo/headerLogo.png'
 import Foot from 'common/foot/index'
 
-import { getCommon } from "./store/createAction"
+import { getCommon, getFoodData } from "./store/createAction"
 
 
 
@@ -34,7 +37,7 @@ class Food extends React.Component{
                     <header className="logo-wrap">
                         <img className="header-logo" src = {logoImg} alt =" "/>
                     </header>
-                    {this.props.foodInfo? this.creactElement(): ""} 
+                    {this.props.foodInfo ? this.creactElement(): ""} 
                 </ContWrap>
                 <ShowImgBar onClick={this.hiddenBar.bind(this)} style={this.state.showBar ? {display: "flex",alignItems: "center"} : {display: "none"}}>
                     <img src={sessionStorage.getItem("imgBar")} alt=""/>
@@ -53,7 +56,7 @@ class Food extends React.Component{
         })
     }
     creactElement() {
-        if (this.props.foodInfo.food.length > 0) {
+        if (this.props.foodInfo.food && this.props.foodInfo.food.length > 0) {
             let {
              shop_name,
              detail_location,
@@ -77,7 +80,7 @@ class Food extends React.Component{
                                     <span>元</span>
                                     <span className="dec">超低实惠价</span>
                                 </div>
-                                <div className="order">
+                                <div onClick={this.goOrderDetail.bind(this,shop_name,food[0].foodname, food[0].price, food[0].title_img)}  className="order">
                                     <span>立即抢购</span>
                                 </div>
                             </div>
@@ -143,7 +146,7 @@ class Food extends React.Component{
     }
 
     createCommonList() {
-        if (this.props.foodComment.length > 0) {
+        if (this.props.foodComment && this.props.foodComment.length > 0) {
             const comment = this.props.foodComment.slice(0,3);
             return (
                 comment.map((ele, index) => {
@@ -166,29 +169,64 @@ class Food extends React.Component{
         }
     }
     componentWillMount() {
-        const foodname = this.props.match.params.foodname.split(".")[0];
-        this.props.getFoodInfo(foodname); //获取foodPage的数据， 利用shopDetail中的数据来解析;
+        let [shopname, foodname] = this.props.match.params.foodname.split(".")[0].split("&");
+        this.props.getFoodInfo(shopname, foodname); //获取foodPage的数据， 利用shopDetail中的数据来解析;
         this.props.getCommonContent(foodname); //通过食品名，获取评论的内容
+        
+    }
+
+    componentWillUnmount() {
+        this.props.dataForNull()
+    }
+
+    //检验是否已经登入，若未登入就到登入页先登入，若登入则直接到订单详情页
+    /**
+     * 
+     * @param {*} shop_name  商店的名称
+     * @param {*} foodname 食物的名称
+     * @param {*} price 食物的价格
+     */
+    goOrderDetail(shop_name, foodname, price,img) {
+        const imgUrl = img.replace("//","**").replace('/deal/','.deal.');
+        const url =  `#/user/OrderSure/${shop_name}&${foodname}&${price}&${imgUrl}`;
+        axios.defaults.withCredentials=true;
+        axios.get(`${api}/loginCheck`)
+            .then((res) => {
+                if (res.data.status === 0) {
+
+                    //做个缓存，以防用户自动刷新时，myPage数据使用defaultData默认数据
+                    // sessionStorage.setItem('UsName',res.data.name);  在登入的时候已经做过了缓存,这里没有必要重新做缓存。
+
+                    window.history.pushState({},'/user/login');
+                    window.location.href = url;  
+                }else {
+                    window.location.href = '#/user/login';
+                }
+            })
     }
 }
  
 const mapStateToProps = (state) => {
     return {
-        foodInfo: state.shopDetail.data[0],
-        foodComment: state.foodComment.comment
+        foodInfo: state.foodDetail.foodData,
+        foodComment: state.foodDetail.comment
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getFoodInfo(foodName) {
-            dispatch({
-                type: "init_food_info",
-                foodName
-            })
+        getFoodInfo(shopName, foodName) {
+            const action = getFoodData(shopName, foodName);
+            dispatch(action);
         },
-        getCommonContent(foodName) {
-            dispatch(getCommon(foodName));
+        getCommonContent(foodName){
+            dispatch(getCommon(foodName))
+        },
+        //退出前清除数据
+        dataForNull() {
+            dispatch({
+                type: "data_for_null"
+            })
         }
     }
 }

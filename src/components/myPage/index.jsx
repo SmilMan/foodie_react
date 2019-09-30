@@ -11,6 +11,7 @@ import { Header,
     UserTitle,
     OrderWrap
 } from  './style'
+import RouterMap from '../../router/route'
 
 
 
@@ -45,25 +46,31 @@ class MyPage extends React.Component {
                     </div>
                 </UserTitle>
                 <OrderWrap>
-                    <a className="all-order">
+                    <Link to="/user/allOrder" className="all-order">
                         <p className="content">
                             <i className="iconfont">&#xe62c;</i>
                             <span>全部订单</span>
                         </p>
                         <p className="right-icon">></p>
-                    </a>
+                    </Link>
                     <ul className="order-dec">
-                        <li>            
-                            <i className="iconfont">&#xe616;</i>
-                            <p>待付款</p>
+                        <li>
+                            <div className="navWrap" onClick={this.toOrderClass.bind(this,"OrderToPay")}>
+                                <i className="iconfont">&#xe616;</i>
+                                <p>待付款</p>
+                            </div>
                         </li>
-                        <li>            
-                            <i className="iconfont">&#xe62a;</i>
-                            <p>待使用</p>
+                        <li>
+                            <div className="navWrap" onClick={this.toOrderClass.bind(this,"OrderToUse")}>   
+                                <i className="iconfont">&#xe62a;</i>
+                                <p>待使用</p>
+                            </div>
                         </li>
-                        <li>            
-                            <i className="iconfont">&#xe63d;</i>
-                            <p>待评价</p>
+                        <li>        
+                            <div className="navWrap" onClick={this.toOrderClass.bind(this,"OrderToCom")}> 
+                                <i className="iconfont">&#xe63d;</i>
+                                <p>待评价</p>
+                            </div>
                         </li>
                     </ul>
                     <div className="item-list">
@@ -101,7 +108,11 @@ class MyPage extends React.Component {
         )
     }
     hashBakc() {
-        window.history.go(-2);
+        window.history.go(-3);
+    }
+    toOrderClass(routeParam) {
+        //根据相应的参数类型。跳到相应的页面
+        window.location.href = `#/user/${routeParam}/${routeParam}`;
     }
 }
 

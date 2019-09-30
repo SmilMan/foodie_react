@@ -87,6 +87,7 @@ export const FoodInfoTitle = styled.div`
                 background: #f90;
                 color: #fff;
                 font-size: .4rem;
+                text-decoration: none;
             }
         }
         .info{

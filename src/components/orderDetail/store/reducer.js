@@ -1,14 +1,13 @@
-import { INIT_SHOP_DETAIL } from './actionType';
-const defaultData = {
+let defaultData = {
     data: []
-};
-
-
+}
+let INIT_DETAIL = 'init_order-detail'
 export default (state = defaultData, action) => {
     let newData = JSON.parse(JSON.stringify(state));
-    if (action.type === INIT_SHOP_DETAIL) {
+    if (action.type === INIT_DETAIL) {
         newData.data = action.data;
         return newData;
     }
-    return newData
+    return defaultData
 }
+

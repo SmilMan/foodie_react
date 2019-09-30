@@ -48,3 +48,19 @@ diyongjuan   抵用券 （纯页面）√
 jifen        积分换礼品 (纯页面) √
 
 
+
+
+allOrder     全部订单  √
+
+allOrder -->
+    componentItem
+
+    orderToCom  待评论 
+    orderToUse  待使用
+    orderToPay  待支付
+
+orderSure  提交订单    √
+
+orderPay   支付订单   √
+
+

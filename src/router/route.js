@@ -1,6 +1,7 @@
 
 import React from 'react'
 import App from '../App';
+
 import ShopDetail from '@/components/shopDetail/async'
 import NotFound from '@/components/NotFound/index'
 import Food from '@/components/foodPage/async'
@@ -19,7 +20,16 @@ import ChangeUsN from '@/components/myInfo/componentItem/changeUserName/index'
 import ChangeUsP from '@/components/myInfo/componentItem/changeUserPas/index'
 import BindPhone from '@/components/myInfo/componentItem/bindPhone/index'
 
+import AllOrder from '@/components/allOrder/index'
+import OrderToCom from '@/components/allOrder/componentsItem/orderToCom/index'
+import OrderToPay from '@/components/allOrder/componentsItem/orderToPay/index'
+import OrderToUse from '@/components/allOrder/componentsItem/orderToUse/index'
 
+import OrderSure from '@/components/orderSure/index'
+
+import OrderPay from '@/components/orderPay/index'
+
+import OrderDetail from '@/components/orderDetail/index'
 
 import MapL from '@/components/map/index'
 
@@ -62,6 +72,18 @@ function RouterMap() {
                 <Route path = "/user/luckDraw" exact component={MyLuckDraw}></Route>
                 <Route path = "/user/juan" exact component={Diyongjuan}></Route>
                 <Route path = "/user/jifen" exact component={MyJifen}></Route>
+
+
+                <Route path = "/user/allOrder" exact component={AllOrder}></Route>  
+                <Route path = "/user/OrderToUse/:toUse" exact component={OrderToUse}></Route> 
+                <Route path = "/user/OrderToPay/:toPay" exact component={OrderToPay}></Route>
+                <Route path = "/user/OrderToCom/:toCom" exact component={OrderToCom}></Route>
+
+                <Route path = "/user/OrderSure/:order" exact component={OrderSure}></Route>
+
+                <Route path = "/user/OrderPay/:pay" exact component={OrderPay}></Route>
+
+                <Route path = "/user/OrderDetail/:orderNumber" exact component={OrderDetail}></Route>
 
                 {/* 第一种用法 */}
                 <Route  component = {NotFound} />

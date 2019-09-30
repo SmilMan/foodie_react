@@ -20,6 +20,7 @@ const changeHistory = () => {
                 // sessionStorage.setItem('UsName',res.data.name); 在登入的时候已经做过缓存
                 
                 window.history.pushState({},'/user/login');
+                window.history.pushState({},'/user/login');
                 window.location.href = '#/user/page';  
             }else {
                window.location.href = '#/user/login';

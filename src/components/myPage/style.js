@@ -142,11 +142,16 @@ export const OrderWrap = style.div`
         li{
             height: 1.3rem;
             text-align: center;
-            i{
-                font-size: .6rem;
-            }
-            p{
-                margin-top: .2rem;
+            .navWrap{
+                color: #000;
+                padding-top: .1rem;
+                text-decoration:none;
+                i{
+                    font-size: .6rem;
+                }
+                p{
+                    margin-top: .2rem;
+                }
             }
         }
     }

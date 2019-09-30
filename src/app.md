@@ -371,6 +371,45 @@
         }
 
 
+## foodPage 立即预定（订餐）
+    和comHeader homeHeader 两个头差不多，两个头要进入myPage前要先判断下是否已经登入，
+
+    立即预定也要先判断下是否已经登入： window.location.href = "url"
+
+    myPage中的  window.history.go(-2),  是为了响应： comHeader / homeHeader/ foodPage 中的 window.history.pushState({} "#/user/login"),  
+     
+    在路由上加一层，当go(-2) 时 ，就会跳过登入页面，达到将登入页面隐藏的效果.
+
+
+## orderToPay  待付款页面
+    有一个取消按钮， 有一个支付按钮
+
+    取消按钮： 当点击时会将订单的编号到过去，删除订单， 然后再将剩余的订单查询出来，返回给前端，前端通过这个去改redux里的数据，就有种当点击时，被点击的订单消失，其他订单还好好的。
+
+>>>>>>这个要注意： orderToPay  orderToCom orderToUse  共同用一个数据。
+
+    支付按钮： 但点击时，通过路由将商店名，总价格，订单编号带过去，在支付的时候以订单编号为准去更改数据库订单的状态。
+
+
+## foodPage页面（请求数据需要带的参数： shop_name , food_name ）
+    allOrder
+    orderToUse
+    orderToCom
+    orderToPay
+
+    shopDetail
+
+    都可以进入到foodPage,  进来时，通过路由将shop_name, food_name带过来， foodPage带着参数去请求相应的数据进行展示
+
+    有一个情况： 第一次进入foodPage时，再一次进入，会闪一下上次食品的数据，比如图片。为了更好的体验感，在foodPage每次即将销毁是，派发一个action，将数据清空。下次进来的时候就不会有闪数据的情况。
+
+
+## 注意三个页面:  orderToUse orderToCom orderToPay 同用一个store文件。
+    也会出现上面数据一闪的情况，
+
+    同理： 在组件即将销毁的时候就清空数据。
+
+
 >>>>>>>项目的缺点： axios 没有封装，有点代码的冗余，和不好维护。
 >>>>>>>            太多的依赖与 sessionStorage 的缓存
 
@@ -381,3 +420,5 @@
 >>>>>>>                  在回到muInfo。这是不合常理的.
 
 >>>>>>> 单页应用而且路由掌握在前端，很难把控。
+
+>>>>>>>  后端整体的容错机制不是很完善，一旦报错，promise没有处理。
