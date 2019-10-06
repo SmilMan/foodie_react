@@ -10,10 +10,10 @@ export const initAllOrder = (data) => {
 }
 
 
-export const getAllOrder = () => {
+export const getAllOrder = (userName) => {
     return (dispatch) => {
         axios.defaults.withCredentials= true;
-        axios.get(`${api}/getAllOrder`)
+        axios.get(`${api}/getAllOrder?username=${userName}`)
             .then( res => {
                 if (res.data.statu === 0) {
                     const action = initAllOrder(res.data.data);

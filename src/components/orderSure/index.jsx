@@ -94,7 +94,7 @@ class OrderSure extends React.Component {
                                 onChange={this.getLocation.bind(this)} 
                                 onFocus={this.changeFlag.bind(this)}
                                 type="text" placeholder="请输入您的地址" 
-                                style={{textIndent:".2rem",fontSize:".3rem",height:".9rem",width:"100%",outline: "none",border:"none"}}
+                                style={{textIndent:".2rem",fontSize:".3rem",height:".9rem",width:"99%",outline: "none",border:"none"}}
                                 />
                         </div>
                         <div className="item-list" style={{borderTop: "none"}}>

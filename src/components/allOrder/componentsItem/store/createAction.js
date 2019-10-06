@@ -11,10 +11,10 @@ export let initOrderUse = (data) => {
 /**
  * orderToCom orderToUse  orderToPay 三个页面根据不同类型，选出订单
  */
-export let getOrderUse = (param) => {
+export let getOrderUse = (classfy, userName) => {
     return (dispatch) => {
         axios.defaults.withCredentials= true;
-        axios.get(`${api}/getClassOrder?classfy=${param}`)
+        axios.get(`${api}/getClassOrder?classfy=${classfy}&username=${userName}`)
             .then( res => {
                 if (res.data.statu ===0) {
                     const action = initOrderUse(res.data.data);

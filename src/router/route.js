@@ -31,6 +31,10 @@ import OrderPay from '@/components/orderPay/index'
 
 import OrderDetail from '@/components/orderDetail/index'
 
+import OrderComment from '@/components/orderComment/index'
+
+import Register from '@/components/register/index'
+
 import MapL from '@/components/map/index'
 
 
@@ -58,7 +62,7 @@ function RouterMap() {
                 <Route path="/shopDetail/:shopname" exact  component={ShopDetail}></Route>
                 <Route path="/comment/:comment" exact component={Comment}></Route>
                 <Route path="/city/location" exact component={CityPage}></Route>
-                <Route path = "/map/location" exact component={MapL}></Route>
+                <Route path = "/map/location/:local" exact component={MapL}></Route>
                 <Route path = "/user/page" exact component={MyPage}></Route>
                 <Route path = "/user/login" exact component={LoginPage}></Route>
                 <Route path = "/imgBar/:shopImg" exact component={ImgBar}></Route>
@@ -85,6 +89,9 @@ function RouterMap() {
 
                 <Route path = "/user/OrderDetail/:orderNumber" exact component={OrderDetail}></Route>
 
+                <Route path = "/user/OrderComment/:comment" exact component={OrderComment}></Route>
+
+                <Route path = "/user/register" exact component={Register}></Route>
                 {/* 第一种用法 */}
                 <Route  component = {NotFound} />
 

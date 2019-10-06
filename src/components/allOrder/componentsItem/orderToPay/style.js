@@ -51,7 +51,7 @@ export const NavWrap = style.div`
             height: 0rem;
         }
         .icon-nav{
-            font-size: .4rem;
+            font-size: .7rem;
         }
     }
 `
@@ -71,7 +71,8 @@ export const ContentWrap = style.div`
     .noOrder{
         width: 100%;
         text-align: center;
-        margin-top: 2.5rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
         img{
             width: 70%;
         }

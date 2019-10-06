@@ -9,7 +9,11 @@ import { Header,
     ContentWrap
 } from  './style'
 
+import noOrder from 'asset/logo/noOrder.png'
+
 import {getOrderUse, delectNoPay} from '../store/createAction'
+
+import Foot from 'common/foot/index'
 
 class OrderToPay extends React.Component {
     render() {
@@ -23,14 +27,18 @@ class OrderToPay extends React.Component {
                     </Back>
                     <Title>待付款</Title>
                     <NavWrap>
-                        <Link to = "/" className= "icon-wrap right-nav">
-                            <i className = "iconfont icon icon-nav">&#xe615;</i>
+                        <Link to = "/user/page" className= "icon-wrap right-nav">
+                            <i className = "iconfont icon icon-nav">&#xe613;</i>
                         </Link>
                     </NavWrap>
                 </Header>
                 <ContentWrap>
-                    {this.createList()}
+                    <div >
+                        {this.createList()}
+                    </div>
+                    <Foot nowShop="待付款订单" bgColor = "#fff" loginMsg ="已登入"/>
                 </ContentWrap>
+                
             </Fragment>
        )
     }
@@ -46,12 +54,12 @@ class OrderToPay extends React.Component {
     }
     createList() {
         return( 
-            // this.props.order.length == 0 ? 
-            //     <div className="noOrder">
-            //         <img src={noOrder} alt=""/>
-            //         <p>您还没有相关的订单</p>
-            //     </div>
-            //     :
+            this.props.order.length == 0 ? 
+                <div className="noOrder">
+                    <img src={noOrder} alt=""/>
+                    <p>您还没有相关的订单</p>
+                </div>
+                :
                 this.props.order.map( item => {
                     return (
                         <div className="wrap" key={item.id}>

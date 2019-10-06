@@ -83,7 +83,7 @@ class ShopDetail extends React.Component{
                     </div>
                     <div className="shop-location">
                         <div className="location-info">
-                            <Link to = "/map/location" className="iconfont location-icon">&#xe7e0;</Link>
+                            <Link to = {`/map/location/${shop_name}&${detail_location}`} className="iconfont location-icon">&#xe7e0;</Link>
                             <span className="location">{detail_location}</span>
                         </div>
                         <div className="icon">

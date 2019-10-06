@@ -1,6 +1,7 @@
 import style from 'styled-components'
 
 export const Footer = style.footer`
+    margin-top: .2rem;
     color: #06c1ae;
     font-size: .26rem;
     padding: .6rem .2rem .6rem .2rem;
@@ -60,12 +61,17 @@ export const Nav = style.nav`
     .nav-wrap{
         font-size: .34rem;
         text-align: center;
-        .home,.order{
+        .home,
+        .order{
             border-right: 1px solid #000;
         }
         .item{
             padding: 0 .5rem;
             display: inline-block;
+            a{
+                color: #000;
+                text-decoration: none;
+            }
         }
     }
 `

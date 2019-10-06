@@ -54,7 +54,7 @@ class Comment extends React.Component {
             </Fragment>
         )
     }
-    componentDidMount() {
+    componentWillMount() {
         const param = this.props.match.params.comment.split(".")[0];
         this.props.initComment(param);
     }

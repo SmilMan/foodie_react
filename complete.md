@@ -55,12 +55,17 @@ allOrder     全部订单  √
 allOrder -->
     componentItem
 
-    orderToCom  待评论 
-    orderToUse  待使用
-    orderToPay  待支付
+    orderToCom  待评论  √
+    orderToUse  待使用  √
+    orderToPay  待支付  √
 
 orderSure  提交订单    √
 
 orderPay   支付订单   √
+
+orderDetail 订单详情  √   --》 支付后进入的页面
+
+
+register   注册页面
 
 

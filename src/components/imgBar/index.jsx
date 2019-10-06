@@ -42,8 +42,9 @@ class ImgBar extends React.Component {
                             })
                         }
                     </ul>
-                    <Foot/>
+                    <Foot nowShop="商家相册" bgColor = "#fff"/>
                 </BarWrap>
+                {/* 展示单张图片 */}
                 <ShowImgBar onClick={this.hiddenBar.bind(this)} style={this.state.showBar ? {display: "flex",alignItems: "center"} : {display: "none"}}>
                     <img src={sessionStorage.getItem("shopImg")} alt=""/>
                 </ShowImgBar>

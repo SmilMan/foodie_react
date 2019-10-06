@@ -6,6 +6,7 @@ import axios from 'axios'
 import {api} from 'api/config.js'
 import happyToUse from 'asset/logo/6.jpg'//无订单logo
 
+import noOrder from 'asset/logo/noOrder.png'//无订单logo
 import { Header, 
     Back, 
     Title, 
@@ -15,6 +16,7 @@ import { Header,
 } from  './style'
 
 import {getOrderUse} from '../store/createAction'
+import Foot from 'common/foot/index'
 
 class OrderToUse extends React.Component {
     constructor(props) {
@@ -34,15 +36,18 @@ class OrderToUse extends React.Component {
                     </Back>
                     <Title>待使用</Title>
                     <NavWrap>
-                        <Link to = "/" className= "icon-wrap right-nav">
-                            <i className = "iconfont icon icon-nav">&#xe615;</i>
+                        <Link to = "/user/page" className= "icon-wrap right-nav">
+                            <i className = "iconfont icon icon-nav">&#xe613;</i>
                         </Link>
                     </NavWrap>
                 </Header>
                 <ContentWrap>
-                    {this.createList()}
+                    <div>
+                        {this.createList()}
+                    </div>
+                     <Foot nowShop="待使用订单" bgColor = "#fff" loginMsg ="已登入"/>
                 </ContentWrap>
-                <Loading style = { this.state.loadFlag ? {display: "flex"}: {display: "none"}}>
+                <Loading style = { this.state.loadFlag ? {display: "flex",zIndex: "13"}: {display: "none"}}>
                     <img src={happyToUse} alt=""/>
                 </Loading>
             </Fragment>
@@ -59,12 +64,12 @@ class OrderToUse extends React.Component {
     }
     createList() {
         return( 
-            // this.props.order.length == 0 ? 
-            //     <div className="noOrder">
-            //         <img src={noOrder} alt=""/>
-            //         <p>您还没有相关的订单</p>
-            //     </div>
-            //     :
+            this.props.order.length == 0 ? 
+                <div className="noOrder">
+                    <img src={noOrder} alt=""/>
+                    <p>您还没有相关的订单</p>
+                </div>
+                :
                 this.props.order.map( item => {
                     return (
                         <div className="wrap" key={item.id}>
@@ -121,7 +126,7 @@ const mapSataeToProps = (state) => {
 const mapDipatchToProps = (dispatch) => {
     return {
         getOrder() {
-            const action = getOrderUse("待使用");
+            const action = getOrderUse("待使用", sessionStorage.getItem("UsName"));
             dispatch(action);
         },
         //在组件销毁前清空数据, 以免影响下一次数据的渲染

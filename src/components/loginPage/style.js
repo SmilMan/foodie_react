@@ -103,10 +103,13 @@ export const LoginBtn = style.div`
     }
     .dec{
         font-size: 0.26rem;
-        color: #FE8C00;
         display: flex;
         padding: 0 .3rem;
         justify-content: space-between;
+        a{
+            text-decoration: none;
+            color: #FE8C00;
+        }
     }
 
 `

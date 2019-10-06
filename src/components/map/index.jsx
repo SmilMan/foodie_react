@@ -35,9 +35,8 @@ class MapL extends Component {
 
     componentDidMount() {
         const { BMap } = window;
-        const shopDetail = JSON.parse(sessionStorage.getItem("shopDetail"));
-        const shopName = shopDetail.data[0].shop_name;// 商家的名字
-        const location = shopDetail.data[0].detail_location;//商家的位置
+        const shopName = this.props.match.params.local.split('&')[0];// 商家的名字
+        const location = this.props.match.params.local.split('&')[0]//商家的位置
         var map = new BMap.Map("allmap"); // 创建Map实例
         map.centerAndZoom(new BMap.Point(118.647374,24.888606), 11); // 初始化地图,设置中心点坐标和地图级别
        

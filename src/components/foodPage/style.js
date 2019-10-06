@@ -134,6 +134,7 @@ export const FoodInfoTitle = styled.div`
             padding-right: .2rem;
             border-right: 1px solid #eee;
             .location-icon{
+                padding: .1rem;
                 margin-top: 0;
                 margin-bottom: 0.06rem;
                 font-size: .38rem;

@@ -13,6 +13,8 @@ import { Header,
 
 import { getAllOrder } from './store/createAction'
 
+import Foot from 'common/foot/index'
+
 class AllOrder extends React.Component {
     render() {
        return (
@@ -26,12 +28,15 @@ class AllOrder extends React.Component {
                     <Title>全部订单</Title>
                     <NavWrap>
                         <Link to = "/" className= "icon-wrap right-nav">
-                            <i className = "iconfont icon icon-nav">&#xe615;</i>
+                            <i className = "iconfont icon icon-nav">&#xe613;</i>
                         </Link>
                     </NavWrap>
                 </Header>
                 <ContentWrap>
-                    {this.createList()}
+                    <div>
+                        {this.createList()}
+                    </div>
+                    <Foot nowShop="全部订单" bgColor = "#fff" loginMsg ="已登入"/>
                 </ContentWrap>
             </Fragment>
        ) 
@@ -40,16 +45,16 @@ class AllOrder extends React.Component {
         window.history.back();
     }
     componentDidMount() {
-        this.props.getOrder();
+        this.props.getOrder(sessionStorage.getItem("UsName"));
     }
     createList() {
         return( 
-            // this.props.allOrder.length === 0? 
-            //     <div className="noOrder">
-            //         <img src={noOrder} alt=""/>
-            //         <p>您还没有相关的订单</p>
-            //     </div>
-            //     :
+            this.props.allOrder.length == 0  ? 
+                <div className="noOrder">
+                    <img src={noOrder} alt=""/>
+                    <p>您还没有相关的订单</p>
+                </div>
+                :
                 this.props.allOrder.map( item => {
                     return (
                         <div className="wrap" key={item.id}>
@@ -75,10 +80,15 @@ class AllOrder extends React.Component {
         let routerParams = {
                 支付 : "OrderPay",
                 使用 : "OrderToUse",
-                评价 : "OrderToComment"
+                评价 : "OrderToCom"
             };
-        //订单后面的按钮点击后，到相应的页面。
-        window.location.href = `#/user/${routerParams[route]}/${shopName}&${totlePrice}&${orderNumber}`;
+        //排除订单已完成， 当已完成时，订单的完成按钮就不能再点；
+
+        if (routerParams[route]) {
+            //订单后面的按钮点击后，到相应的页面。
+            window.location.href = `#/user/${routerParams[route]}/${shopName}&${totlePrice}&${orderNumber}`;
+        }
+        
     }
 }
 
@@ -90,8 +100,8 @@ const mapStateToProps = (state)=> {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getOrder() {
-            const action = getAllOrder();
+        getOrder(param) {
+            const action = getAllOrder(param);
             dispatch(action);
         }
     }

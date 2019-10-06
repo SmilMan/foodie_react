@@ -295,6 +295,10 @@
 
 
 
+## 退出页面（登出）
+    发个请求将服务端的缓存清空就可以，
+    当res.session.userName = ''时，前端在访问需要登入的页面时，后端会返回res.session.userName,返回为空，就是为登入，就的重新登入。
+
 ## *************   axios 跨域请求和携带cookie   服务端允许跨域的设置（基于express  cors 插件）
     axios 请求是不携带cookie的，
           当服务端接收到axios请求时，会派发一个session_id（可以理解成token），因为axios不携带cookie,这个session_id就不会别带回带客服端。进而让人误认为服务端没有派发。
@@ -343,8 +347,8 @@
 
 
 
-##  数据缓存的配置
-    res.setHeader("Cache-Control","max-age=10000");
+<!-- ##  数据缓存的配置
+    res.setHeader("Cache-Control","max-age=10000"); -->
 
 
 
@@ -408,6 +412,45 @@
     也会出现上面数据一闪的情况，
 
     同理： 在组件即将销毁的时候就清空数据。
+
+
+## 浏览器缓存的问题：
+    chrome 浏览器的控制台的  Disable cache 如果打钩的话，就会忽略缓存，
+
+    express  etag
+
+## etag 数据签名
+    //关于数据签名，缓存验证
+    // app.use(express.static(path.join(__dirname, 'public')));
+    // app.use(express.static(path.join(__dirname, 'public'), {
+    //         etag: false
+    // }));
+    //返回的数据不存在验证缓存， 前端每次请求都是新的数据
+    //若不关掉，前端会优先从缓存中去，请求不会是一个新的请求，导致一些问题，如评论：当评论完，刷新页面，评论的内容并没有更新，
+    // 就是因为，前端通过etag验证，后端验证数据签名没有变，请求的数据会从缓存中取，不会派发一个新的请求。
+
+    // app.set('etag', false); // turn on
+
+    express 源码里可以找的到。
+
+
+
+## md5 加密
+    对密码进行加密
+
+
+## express 中间件的使用  user.js(router)
+    nameUniquCheck: 用于用户名的检测，如果用户名已经注册了，就返回注册失败，该用户名已经注册啦，
+    如果没有，就执行下一个中间件。
+
+
+## sql注入  xss攻击 密码加密md5
+    sql注入： 
+        const escap = require('mysql').escape  --> 是一个方法
+
+    xss： 
+        只用在了  评论的内容里
+
 
 
 >>>>>>>项目的缺点： axios 没有封装，有点代码的冗余，和不好维护。

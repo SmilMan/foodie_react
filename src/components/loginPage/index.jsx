@@ -50,8 +50,8 @@ class LoginPage extends React.Component{
                        <span onClick={this.userLogin.bind(this)} className="login-btn">登入</span> 
                     </div>
                     <div className="dec">
-                        <p>立即注册</p>
-                        <p>忘记密码</p>
+                        <Link to = "/user/register">立即注册</Link>
+                        <Link to = "">忘记密码</Link>
                     </div>
                 </LoginBtn>
                 <AlertMessage onClick={this.hidden.bind(this)} style={ this.state.flag ? {display: "flex"}: {display: "none"}}>
