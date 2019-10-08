@@ -106,7 +106,7 @@
 
 ## 按照订单的编号来删除订单（取消未支付的订单）
     post
-    http://localhost/api/deleteOrder
+    http://localhost:8000/api/deleteOrder
     data{
         number(订单的编号)
     }
@@ -115,4 +115,23 @@
 
 
 
-    
+## 修改收藏的状态（对应表collect）
+    post
+    http://localhost:8000/api/collect
+    data{
+        title_img,//图片路径
+        s_name,//商店名称
+        foodname,//食物名称
+        price,//食物价格
+        sold,//已售
+        collect,//收藏状态
+        user // 用户名
+    }
+>>>> 接口实现最有难度的一个
+
+## 获取收藏的食物信息
+    get
+    http://localhost:8000/api/getCollect
+    query{
+        username //用户名   
+    }

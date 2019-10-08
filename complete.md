@@ -66,6 +66,12 @@ orderPay   支付订单   √
 orderDetail 订单详情  √   --》 支付后进入的页面
 
 
-register   注册页面
+register   注册页面 √
+
+
+forgetPas 忘记密码页面 √
+
+
+myCollect 收藏页面 √
 
 

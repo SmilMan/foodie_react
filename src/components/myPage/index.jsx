@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 
 import {Link} from 'react-router-dom'
 
-import { Header, 
+import { 
+    Header, 
     Back, 
     Title, 
     NavWrap,
@@ -74,13 +75,13 @@ class MyPage extends React.Component {
                         </li>
                     </ul>
                     <div className="item-list">
-                        <a className="all-order">
+                        <Link to = "/user/collect" className="all-order">
                             <p className="content">
                                 <i className="iconfont" style={{background:"#0092DE"}}>&#xe637;</i>
                                 <span>我的收藏</span>
                             </p>
                             <p className="right-icon">></p>
-                        </a>
+                        </Link>
                         <Link to="/user/juan" className="all-order">
                             <p className="content">
                                 <i className="iconfont" style={{background:"#EB2C00"}}>&#xe666;</i>

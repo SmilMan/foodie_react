@@ -3,12 +3,17 @@ import { connect } from 'react-redux'
 import ComHeader from 'common/comHeader'
 import logoImg from  'asset/logo/headerLogo.png'
 import { Link } from 'react-router-dom'
-
+import axios from 'axios'
+import {api} from 'api/config.js'
 // import { getFoodData } from '@/components/foodPage/store/createAction'
 
 import { getShopDetail } from "./store/createAction"
 
-import { 
+import {
+    Header, 
+    Back, 
+    Title, 
+    NavWrap,
     ContWrap, 
     Content, 
     ShopInfo,
@@ -23,7 +28,19 @@ class ShopDetail extends React.Component{
     render() {
         return (
             <Fragment>
-                <ComHeader title = "商家详情"/>
+                <Header>
+                    <Back>
+                        <div className= "icon-wrap" onClick = { this.hashBakc }>
+                            <i className = "iconfont icon">&#xe682;</i>
+                        </div>
+                    </Back>
+                    <Title>商家详情</Title>
+                    <NavWrap>
+                        <div onClick={this.changeHistory} className= "icon-wrap right-nav">
+                            <i className = "iconfont icon icon-nav">&#xe613;</i>
+                        </div>
+                    </NavWrap>
+                </Header>
                 <ContWrap>
                     <header className="logo-wrap">
                         <img className="header-logo" src = {logoImg} alt ="title img"/>
@@ -32,6 +49,26 @@ class ShopDetail extends React.Component{
                 </ContWrap>
             </Fragment>
         )
+    }
+    hashBakc() {
+        window.history.back();
+    }
+    changeHistory() {
+        axios.defaults.withCredentials=true;
+        axios.get(`${api}/loginCheck`)
+            .then((res) => {
+                if (res.data.status === 0) {
+
+                    //做个缓存，以防用户自动刷新时，myPage数据使用defaultData默认数据
+                    // sessionStorage.setItem('UsName',res.data.name);  在登入的时候已经做过了缓存
+
+                    window.history.pushState({},'/user/login');
+                    window.history.pushState({},'/user/login');
+                    window.location.href = '#/user/page';  
+                }else {
+                    window.location.href = '#/user/login';
+                }
+            })
     }
     componentDidMount() {
         const param = this.props.match.params.shopname.split(".")[0];

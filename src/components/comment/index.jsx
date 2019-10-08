@@ -43,9 +43,9 @@ class Comment extends React.Component {
                         <i className="iconfont icon">&#xe637;</i>
                     </div>
                     <div className="classfy">
-                        <span>全部评价：{this.props.comment.length}</span>
-                        <span onClick={this.filterCom.bind(this, 1)}>好评：{0}</span>
-                        <span onClick={this.filterCom.bind(this, 0)}>差评：{0}</span>
+                        <span onClick={this.filterCom.bind(this, "all")}>全部评价：{this.props.totle}</span>
+                        <span onClick={this.filterCom.bind(this, "good")}>好评：{this.props.good}</span>
+                        <span onClick={this.filterCom.bind(this, "bad")}>差评：{this.props.bad}</span>
                     </div>
                 </Dec>
                 <CommentWrap>
@@ -58,8 +58,24 @@ class Comment extends React.Component {
         const param = this.props.match.params.comment.split(".")[0];
         this.props.initComment(param);
     }
-    filterCom(){
-        
+    /**
+     * 
+     * @param {*} comClass  评价的类型 
+     */
+    filterCom(comClass){
+        switch (comClass) {
+            case "all":
+                this.props.initComment(this.props.match.params.comment.split(".")[0]);
+                break;
+            case "good":
+                this.props.getGoodCom();
+                break;
+            case "bad":
+                this.props.getBadCom();
+                break;
+            default:
+                break;
+        }
     }
     hashBakc() {
         window.history.back();
@@ -90,7 +106,10 @@ class Comment extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        comment: state.comment.data
+        comment: state.comment.data,
+        totle: state.comment.totle,
+        good: state.comment.good,
+        bad: state.comment.bad
     }
 }
 
@@ -99,7 +118,20 @@ const mapDispacthToProps = (dispatch) => {
         initComment(params) {
             const action = getComment(params);
             dispatch(action);
+        },
+        getGoodCom() {
+            const action = {
+                type: "get_good_com",
+            }
+            dispatch(action);
+        },
+        getBadCom() {
+            const action = {
+                type: "get_bad_com"
+            };
+            dispatch(action);
         }
+
     }
 }
 

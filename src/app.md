@@ -451,8 +451,41 @@
     xss： 
         只用在了  评论的内容里
 
+## 最后一个功能  收藏功能 
+    第二个回调：
+     ×   this.setState(() => ({
+            flag: !this.state.flag
+        }),()=> {
+            let formData = new FormData();
+            formData.append("collect", this.state.flag);
+            axios.defaults.withCredentials = true;
+            axios.post(`${api}/collect`, formData, {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then( res => {
+                console.log(res);
+            })
+        })
+
+    上面的存在问题： 当父组件传过来的值： 
+            this.state = {
+                flag: prop.collect
+            }
+        无法响应
+
+    直接将comHeader这个头合并在foodPage这个页面里，数据的处理也方便，但是不好管理
+    
+    当点击收藏时： 派发一个action，通过改变store里的collect值，来控制页面的渲染，在者就是将数据发送给服务端，更新数据库， 这里存在一个异步，发送数据应该在一个定时器里面，在能准确获取到action更改后的collect（状态）.
 
 
+## mypage  中 我的收藏， 数据的获取
+    。。。。。
+    难点： 不同用户的收藏
+        如果只用一个表： food 增加个字段（collect）来判断是否收藏，是不够的。因为还要更具是哪个用户进行的收藏
+
+        所以新键一个表： collect（收藏表）;
+
+    foodPage 页面：收藏点图标的转换（表示是否收藏），其状态是依赖与当前页面的store(reducer)里面的collect, collect 是查询单个食物数据时返回的数据，在表food里面有一个字段collect字段其值全为false,为了未登入的用户，收藏显示都是未收藏，当要收藏时，其改变的状态，发送的请求是去改变表collect里面的字段的状态，不能去改food的状态，在更改前会先查询collect表中有没有当前数据，没有当前的数据就会先新增数据，有数据就更改状态。在要收藏前，会有判断用户是否登入，当登入后，结合服务端的数据查询设计，再返回foodPage页面是，请求数据，初始化reducer时,服务端返回的数据会结合req.session.username,如果有值，在请求food数据表是，会在发一个查询去查询collect表表的数据（以用户名和食物名去查）,返回的结果和food数据进行整合，food查出来的数据字段collect改成,collect表的collect字段的数据，再返回给前端，这样子就实现了在登入下可以查看当前用户的收藏情况。
 >>>>>>>项目的缺点： axios 没有封装，有点代码的冗余，和不好维护。
 >>>>>>>            太多的依赖与 sessionStorage 的缓存
 

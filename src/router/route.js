@@ -15,6 +15,8 @@ import MyLuckDraw from '@/components/myPage/componentItem/myLuckDraw/index'
 import Diyongjuan from '@/components/myPage/componentItem/diyongjuan/index'
 import MyJifen from '@/components/myPage/componentItem/jifen/index'
 
+import MyCollect from '@/components/myCollect/index'
+
 import MyInfo from '@/components/myInfo/index'
 import ChangeUsN from '@/components/myInfo/componentItem/changeUserName/index'
 import ChangeUsP from '@/components/myInfo/componentItem/changeUserPas/index'
@@ -77,6 +79,7 @@ function RouterMap() {
                 <Route path = "/user/juan" exact component={Diyongjuan}></Route>
                 <Route path = "/user/jifen" exact component={MyJifen}></Route>
 
+                <Route path = "/user/collect" exact component={MyCollect}></Route>
 
                 <Route path = "/user/allOrder" exact component={AllOrder}></Route>  
                 <Route path = "/user/OrderToUse/:toUse" exact component={OrderToUse}></Route> 

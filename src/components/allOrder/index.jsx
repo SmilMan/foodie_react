@@ -27,7 +27,7 @@ class AllOrder extends React.Component {
                     </Back>
                     <Title>全部订单</Title>
                     <NavWrap>
-                        <Link to = "/" className= "icon-wrap right-nav">
+                        <Link to = "/user/page" className= "icon-wrap right-nav">
                             <i className = "iconfont icon icon-nav">&#xe613;</i>
                         </Link>
                     </NavWrap>

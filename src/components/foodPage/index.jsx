@@ -5,9 +5,12 @@ import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import {api} from 'api/config.js'
 
-import ComHeader from "common/comHeader/index"
 
 import {
+    Header, 
+    Back, 
+    Title, 
+    NavWrap,
     ContWrap,
     FoodInfoTitle,
     ShopInfo,
@@ -26,13 +29,36 @@ class Food extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            showBar: false
+            showBar: false,
         }
     }
     render() {
         return (
             <Fragment>
-                <ComHeader title = "美食详情"/>
+                <Header>
+                    <Back>
+                        <div className= "icon-wrap" onClick = { this.hashBakc }>
+                            <i className = "iconfont icon">&#xe682;</i>
+                        </div>
+                    </Back>
+                    <Title>美食详情</Title>
+                    <NavWrap>
+                        <div onClick={this.collect.bind(this)} className= "icon-wrap right-nav">
+                            {
+                                    this.props.collect ? 
+                                    <i className = "iconfont icon">&#xe6b0;</i>:
+                                    <i className = "iconfont icon">&#xe637;</i>
+                            }   
+                            <span className = "dec">收藏</span>
+                        </div>
+                        <div onClick={this.changeHistory} className= "icon-wrap right-nav">
+                            <i className = "iconfont icon icon-nav">&#xe613;</i>
+                            <span className = "dec">我的</span>
+                        </div>
+                    </NavWrap>
+                </Header>
+
+
                 <ContWrap>
                     <header className="logo-wrap">
                         <img className="header-logo" src = {logoImg} alt =" "/>
@@ -45,6 +71,77 @@ class Food extends React.Component{
             </Fragment>
         )
     }
+
+
+    hashBakc() {
+        window.history.back();
+    }
+    /**
+     * 修改collect （是否收藏的状态）
+     * 并且发送请求将状态更新到数据库
+     */
+    collect() {
+        axios.defaults.withCredentials=true;
+        axios.get(`${api}/loginCheck`)
+            .then((res) => { 
+                if (res.data.status === 0) {
+                    this.props.changeCollect();
+                    setTimeout(() =>{
+                        let formData = new FormData();
+                        let {
+                            title_img,
+                            s_name,
+                            foodname,
+                            price,
+                            sold,
+                        } = this.props.foodInfo.food[0];
+                        formData.append("title_img",title_img);
+                        formData.append("s_name",s_name);
+                        formData.append("foodname", foodname);
+                        formData.append("price", price);
+                        formData.append('sold',sold);
+                        formData.append("collect", this.props.collect);
+                        formData.append("user", sessionStorage.getItem("UsName"));
+                        axios.defaults.withCredentials = true;
+                        axios.post(`${api}/collect`, formData, {
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        })
+                        .then( res => {
+                            console.log(res)
+                            if (res.data.statu === 0) {
+                                alert("操作成功");
+                            } else{
+                                alert("操作失败");
+                            }
+                        })
+                    }) 
+                }else {
+                    window.location.href = '#/user/login';
+                }
+            })
+    }
+    /**
+     * 在进入我的页面之前
+     * 判断是否已经登入
+     */
+    changeHistory() {
+        axios.defaults.withCredentials=true;
+        axios.get(`${api}/loginCheck`)
+            .then((res) => { 
+                if (res.data.status === 0) {
+
+                    //做个缓存，以防用户自动刷新时，myPage数据使用defaultData默认数据
+                    // sessionStorage.setItem('UsName',res.data.name);  在登入的时候已经做过了缓存
+
+                    window.history.pushState({},'/user/login');
+                    window.history.pushState({},'/user/login');
+                    window.location.href = '#/user/page';  
+                }else {
+                    window.location.href = '#/user/login';
+                }
+            })
+    }
+
     showBar() {
         this.setState({
             showBar: true
@@ -209,7 +306,8 @@ class Food extends React.Component{
 const mapStateToProps = (state) => {
     return {
         foodInfo: state.foodDetail.foodData,
-        foodComment: state.foodDetail.comment
+        collect: state.foodDetail.collect,
+        foodComment: state.foodDetail.comment,
     }
 }
 
@@ -222,6 +320,14 @@ const mapDispatchToProps = (dispatch) => {
         getCommonContent(foodName){
             dispatch(getCommon(foodName))
         },
+
+        changeCollect() {
+            const action = {
+                type: "change_collect",
+            }
+            dispatch(action);
+        },
+
         //退出前清除数据
         dataForNull() {
             dispatch({

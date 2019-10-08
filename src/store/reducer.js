@@ -16,6 +16,8 @@ import orderToUse from '@/components/allOrder/componentsItem/store/reducer'
 
 import orderDetail from '@/components/orderDetail/store/reducer'
 
+import myCollect from '@/components/myCollect/store/reducer'
+
 export default combineReducers({
     iconList: Icon,
     allShop: AllShop,
@@ -27,5 +29,6 @@ export default combineReducers({
     myPage,
     allOrder,
     orderToUse,
-    orderDetail
+    orderDetail,
+    myCollect
 })
