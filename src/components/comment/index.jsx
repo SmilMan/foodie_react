@@ -81,7 +81,7 @@ class Comment extends React.Component {
         window.history.back();
     }
     createCommonList() {
-            if (this.props.comment.length > 0) {
+            if (this.props.comment && this.props.comment.length > 0) {
                 return (
                     this.props.comment.map((ele, index) => {
                         return <div className="content" key = {index}>
@@ -100,6 +100,8 @@ class Comment extends React.Component {
                         </div>
                     })
                 )
+            }else{
+                return <div className="no-comment">暂时没有评论....</div>
             }
         }
 }

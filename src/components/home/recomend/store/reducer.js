@@ -38,5 +38,5 @@ export default (state = defaultState, action) => {
         newState.navText = action.shopType;
         return newState;
     }
-    return state;
+    return newState;
 }

@@ -13,11 +13,10 @@ const changeHistory = () => {
     axios.defaults.withCredentials=true;
     axios.get(`${api}/loginCheck`)
         .then((res) => {
-            console.log(res)
             if (res.data.status === 0) {
 
                 //做个缓存，以防用户自动刷新时，myPage数据使用defaultData默认数据
-                // sessionStorage.setItem('UsName',res.data.name); 在登入的时候已经做过缓存
+                sessionStorage.setItem('UsName',res.data.name); //在登入的时候已经做过缓存
                 
                 window.history.pushState({},'/user/login');
                 window.history.pushState({},'/user/login');

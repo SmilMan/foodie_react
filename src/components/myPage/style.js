@@ -142,6 +142,7 @@ export const OrderWrap = style.div`
         li{
             height: 1.3rem;
             text-align: center;
+            position: relative;
             .navWrap{
                 color: #000;
                 padding-top: .1rem;
@@ -152,6 +153,18 @@ export const OrderWrap = style.div`
                 p{
                     margin-top: .2rem;
                 }
+            }
+            .circle-num{
+                position: absolute;
+                top: -4px;
+                left: 30px;
+                width: .5rem;
+                height: .5rem;
+                border-radius: 50%;
+                background: #f00;
+                color: #fff;
+                line-height: .5rem;
+                text-align: center;
             }
         }
     }

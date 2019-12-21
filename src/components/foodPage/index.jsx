@@ -85,7 +85,7 @@ class Food extends React.Component{
         axios.get(`${api}/loginCheck`)
             .then((res) => { 
                 if (res.data.status === 0) {
-                    this.props.changeCollect();
+                    this.props.changeCollect();//更改状态  派发一个action 同时下面发送请求去改数据库的数据
                     setTimeout(() =>{
                         let formData = new FormData();
                         let {
@@ -263,6 +263,8 @@ class Food extends React.Component{
                     </div>
                 })
             )
+        }else{
+            return <div className="no-comment">暂无评论</div>
         }
     }
     componentWillMount() {

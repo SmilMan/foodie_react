@@ -61,7 +61,6 @@ class myInfo extends React.Component{
         window.history.back();
     }
     loginOut() {
-        console.log('out')
         axios.get(`${api}/loginOut`)
             .then( res => {
                 //退出后直接到主页

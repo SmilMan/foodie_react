@@ -72,6 +72,9 @@ export const Nav = style.nav`
                 color: #000;
                 text-decoration: none;
             }
+            p{
+                color: #000;
+            }
         }
     }
 `

@@ -176,9 +176,8 @@ class OrderSure extends React.Component {
             formData.append('statu', '未支付');
             formData.append('statu_msg','支付')
             formData.append('orderNumber', orderNumber);
-            formData.append('time',this.state.time);
+            formData.append('time',this.state.time.split(" ")[0]);
             formData.append('location', this.state.location)
-
             axios.defaults.withCredentials=true;
             axios.post(`${api}/pushOrder`, formData , {
                 headers:{'Content-Type': 'application/x-www-form-urlencoded'}

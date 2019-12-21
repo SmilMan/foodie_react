@@ -69,7 +69,7 @@ class ChangeUsN extends React.Component{
     }
     changeUsName() {
         //匹配中文或者字母开头 /u utf-8
-        let reg = /^([A-Za-z]|\p{Unified_Ideograph})/u
+        let reg = /^([A-Za-z]|\p\{Unified_Ideograph\})/u
         let formData = new FormData();
         if (reg.test(this.state.UsName) && this.state.UsName.length > 4 && this.state.UsName.length < 10 && sessionStorage.getItem("UsName") !==this.state.UsName) {
             

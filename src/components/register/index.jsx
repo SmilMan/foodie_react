@@ -7,10 +7,10 @@ import { Header,
     Title, 
     NavWrap,
     ContentWrap
-} from  './style'
+} from  './style';
 
-import axios from 'axios'
-import {api} from 'api/config.js'
+import axios from 'axios';
+import {api} from 'api/config.js';
 
 class Register extends React.Component {
         constructor(props) {
@@ -149,8 +149,9 @@ class Register extends React.Component {
     }
 
     userRegister() {
+        let time = new Date();
         //匹配中文或者字母开头 /u utf-8
-        let reg1 = /^([A-Za-z]|\p{Unified_Ideograph})/u;
+        let reg1 = /^([A-Za-z]|\p\{Unified_Ideograph\})/u;
         //不能为纯数字，不能为纯字母，不能为纯特殊符号，综合起来就是必须为数字 字母 特殊符号中最少两种
         let reg2 =/^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$)^.{6,14}$/;
 
@@ -182,6 +183,8 @@ class Register extends React.Component {
         }
         formData.append("userPas",onePas);
         formData.append("userName",this.state.UsName);
+        formData.append("time", `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`);
+        formData.append("power","0"); //控制权限，只有一个超级管理员
         axios.post(`${api}/user/register`,formData ,{
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then( (res) => {
@@ -192,7 +195,6 @@ class Register extends React.Component {
             }else{
                 alert(res.data.message);
             }
-            console.log(res);
         })
     }
 }

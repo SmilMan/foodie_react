@@ -132,4 +132,10 @@ export const Dec = style.div`
             overflow: hidden;
         }
     }
+
+    .no-comment{
+        color: rgba(0,0,0,0.5);
+        text-align: center;
+        line-height: 3rem;
+    }
  `

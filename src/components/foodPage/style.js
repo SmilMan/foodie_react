@@ -325,6 +325,12 @@ export const FoodInfoTitle = styled.div`
         }
     }
 
+    .no-comment{
+        color: rgba(0,0,0,0.5);
+        line-height: 1.5rem;
+        text-align: center;
+    }
+
     .more-recom{
         position: relative;
         color: #06c1ae;

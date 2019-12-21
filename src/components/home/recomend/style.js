@@ -36,6 +36,7 @@ export const Content = styled.div`
                 text-decoration: none;
                 .pic-wrap img{
                     width: 1.8rem;
+                    height: 100%;
                 }
                 .dec-wrap{
                     padding-left: .2rem;

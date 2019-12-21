@@ -103,10 +103,11 @@ const mapSataeToProps = (state) => {
 const mapDipatchToProps = (dispatch) => {
     return {
         getOrder() {
-            const action = getOrderUse("未支付");
+            const action = getOrderUse("未支付", sessionStorage.getItem("UsName"));
             dispatch(action);
         },
         deleteO(param) {
+            console.log(param)
             const action = delectNoPay(param);
             dispatch(action);
         },

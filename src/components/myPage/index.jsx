@@ -12,7 +12,9 @@ import {
     UserTitle,
     OrderWrap
 } from  './style'
-import RouterMap from '../../router/route'
+import {
+    getAllOrder
+} from './store/createAction'
 
 
 
@@ -60,18 +62,36 @@ class MyPage extends React.Component {
                                 <i className="iconfont">&#xe616;</i>
                                 <p>待付款</p>
                             </div>
+                            <span 
+                                style = {this.props.toPay > 0 ? {display: "inline-block"}:{display: "none"}} 
+                                className="circle-num"
+                            >
+                                {this.props.toPay}
+                            </span>
                         </li>
                         <li>
                             <div className="navWrap" onClick={this.toOrderClass.bind(this,"OrderToUse")}>   
                                 <i className="iconfont">&#xe62a;</i>
                                 <p>待使用</p>
                             </div>
+                            <span 
+                                style = {this.props.toUse > 0 ? {display: "inline-block"}:{display: "none"}} 
+                                className="circle-num"
+                            >
+                                {this.props.toUse}
+                            </span>
                         </li>
                         <li>        
                             <div className="navWrap" onClick={this.toOrderClass.bind(this,"OrderToCom")}> 
                                 <i className="iconfont">&#xe63d;</i>
                                 <p>待评价</p>
                             </div>
+                            <span 
+                                style = {this.props.toCom > 0 ? {display: "inline-block"}:{display: "none"}} 
+                                className="circle-num"
+                            >
+                                {this.props.toCom}
+                            </span>
                         </li>
                     </ul>
                     <div className="item-list">
@@ -111,6 +131,9 @@ class MyPage extends React.Component {
     hashBakc() {
         window.history.go(-3);
     }
+    componentDidMount() {
+        this.props.initAllOrder(sessionStorage.getItem("UsName"));
+    }
     toOrderClass(routeParam) {
         //根据相应的参数类型。跳到相应的页面
         window.location.href = `#/user/${routeParam}/${routeParam}`;
@@ -118,14 +141,19 @@ class MyPage extends React.Component {
 }
 
 
-// const mapStateToProps = (state) => {
-//     return {
-//         name: state.myPage.userName
-//     }
-// }
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-
-//     }
-// }
-export default connect(null, null) (MyPage)
+const mapStateToProps = (state) => {
+    return {
+        toPay: state.myPage.toPay,
+        toUse: state.myPage.toUse,
+        toCom: state.myPage.toCom
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        initAllOrder(userName) {
+            const action = getAllOrder(userName);
+            dispatch(action);
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps) (MyPage)

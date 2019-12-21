@@ -57,7 +57,7 @@ class MyCollect extends React.Component {
                 :
                 this.props.collectData.map( (item,index) => {
                     return (
-                        <div className="wrap" key={index}>
+                        <div className="wrap" onClick = {this.toFoodPage.bind(this, item.s_name, item.foodname)} key={index}>
                             <div className="title-img">
                                 <img src={item.title_img} alt=""/>
                             </div>
@@ -74,7 +74,11 @@ class MyCollect extends React.Component {
                 })
         )
     }
-
+    toFoodPage(shopName, foodName) {
+        // to = {"/food/" + shop_name + '&'+ele.foodname + ".html"}
+        // 商店名 食物名
+        window.location.href = `#/food/${shopName}&${foodName}.html`;
+    }
 }
 
 const mapStateToProps = (state)=> {

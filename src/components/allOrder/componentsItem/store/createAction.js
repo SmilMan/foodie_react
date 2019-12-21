@@ -35,6 +35,7 @@ export let delectNoPay = (number)  => {
     return (dispatch) => {
         let formData = new FormData();
         formData.append('number', number);
+        formData.append('username', sessionStorage.getItem("UsName"));
         axios.defaults.withCredentials= true;
         axios.post(`${api}/deleteOrder`, formData,{
              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -42,6 +43,10 @@ export let delectNoPay = (number)  => {
         .then( res => {
             if (res.data.statu ===0) {
                 const action = initOrderUse(res.data.data);
+                dispatch(action);
+               
+            }else{
+                const action = initOrderUse([]);
                 dispatch(action);
             }
         })

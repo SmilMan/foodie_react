@@ -52,7 +52,7 @@ class ComHeader extends React.Component {
                 if (res.data.status === 0) {
 
                     //做个缓存，以防用户自动刷新时，myPage数据使用defaultData默认数据
-                    // sessionStorage.setItem('UsName',res.data.name);  在登入的时候已经做过了缓存
+                    sessionStorage.setItem('UsName',res.data.name);  //在登入的时候已经做过了缓存
 
                     window.history.pushState({},'/user/login');
                     window.history.pushState({},'/user/login');
